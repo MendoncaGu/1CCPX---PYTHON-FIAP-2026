@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        let lista = [10, 20, 30, 40];
+        let valor = 25
+        let posicao = 2
+
+        console.log(lista);
+        lista.push(0);
+
+        console.log(lista);
+        for (let i = lista.length - 1; i > posicao; i--){
+            lista[i] = lista[i - 1];
+            console.log("Vetor na " + (lista.length-i) + "ª passagem: " + lista);
+        }
+        
+
+        lista[posicao] = valor;
+        console.log(lista);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
