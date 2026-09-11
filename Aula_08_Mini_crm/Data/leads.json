@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Gustavo",
+    "e-mail": "a@b.com",
+    "status": "novo",
+    "created": "2026-09-10"
+  },
+  {
+    "name": "Gustavo",
+    "e-mail": "Gustavo@g.com",
+    "status": "Novo",
+    "created": "2026-09-10"
+  }
+]
