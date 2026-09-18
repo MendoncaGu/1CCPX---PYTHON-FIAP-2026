@@ -1,0 +1,63 @@
+import csv
+from pathlib import Path
+import json
+from textwrap import indent
+
+DATA_DIR = Path(__file__).resolve().parent
+DATA_DIR.mkdir(exist_ok=True)
+DB_PATH = DATA_DIR / 'leads.json'
+
+#Create
+#Read
+#Update
+#Delete
+
+#READ
+def read_leads():
+    if not DB_PATH.exists():
+        return []
+
+    try:
+        return json.loads(DB_PATH.read_text(encoding='utf-8'))
+    except json.JSONDecodeError:
+        return []
+
+# CREATE
+def create_lead(lead_dict):
+    leads = read_leads()
+    leads.append(lead_dict)
+    DB_PATH.write_text(json.dumps(leads, ensure_ascii=False, indent=2), encoding='utf-8')
+
+# FUNÇÃO QUE RECEBE O TEXTO DA BUSCA E RETORNA UMA LISTA COM RESULTADOS
+def read_leads_search(query):
+    leads = read_leads() #lista de dicionarios/ lista de leads/arry de dicts
+    results = []
+
+    for i, leads in enumerate(leads):
+        txt_lead = f"{leads["name"]} {leads['e-mail']}"
+        print(txt_lead)
+
+        if query.lower() in txt_lead:
+            results.append(i, leads)
+
+    return results
+
+print(read_leads_search("Gustavo"))
+
+
+def export_csv():
+    # Exporta leads para CSV e RETORNA o caminho do arquvio
+    path_csv = DATA_DIR / "leads.csv"
+
+    leads = read_leads()
+    try:
+        with path_csv.open("w", newline="", encoding="utf-8") as file_csv:
+            writer = csv.DictWriter(file_csv, leads[0].keys())
+            writer.writeheader()
+
+            for row_dict in leads:
+                writer.writerow(row_dict)
+        return path_csv
+    except PermissionError:
+        return None
+
